@@ -22,9 +22,6 @@ nunjucks.configure('views',{
 
 // app.use(bodyParser.urlencoded({extended:false}));
 
-app.get('/aaa', function (req, res) {
-    res.render('aaa.html')
-});
 
 app.get('/details', function (req, res) {
     res.render('details.html')
@@ -37,6 +34,5 @@ app.get('/home', function (req, res) {
 app.get('/center', function (req, res) {
     res.render('PersonalCenter.html')
 });
-
 
 app.listen(3000);

@@ -1,4 +1,3 @@
-
 <!-- 首页 -->
 
 <!DOCTYPE html>
@@ -41,23 +40,24 @@
             position: relative;
         }
 
-        .userhead {
+        .main_nav {
             display: inline;
-            /* border: 1px solid black; */
-            width: 100px;
             height: 34px;
             line-height: 34px;
             margin-top: 11px;
             float: right;
-            /* border:1px solid red; */
         }
 
-        .userhead>a {
+        .main_nav>ul {
             width: 32px;
             height: 22px;
             font-size: 16px;
             margin-left: 10px;
             color: aliceblue;
+        }
+
+        .main_nav>ul>li {
+            /* border: 1px solid red; */
         }
 
         .frame {
@@ -109,10 +109,9 @@
             margin-top: 16px;
         }
 
-        .title1>a {
+        .main_nav>a {
             margin: 0 auto;
-            /* font-family:PingFangSC-Regular; */
-            font-weight: bold;
+
         }
 
         .input1 {
@@ -121,46 +120,33 @@
             margin: 0 auto;
             margin-left: 13px;
             margin-top: 10px;
-            border:1px solid rgb(219, 216, 216);
+            border: 1px solid rgb(219, 216, 216);
         }
 
         .titme {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(211, 211, 214, 0.9);
-            z-index: 3;
-            overflow-y: auto;
-            cursor: pointer;
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        .titme.come {
-            visibility: visible;
-            opacity: 1;
-
-        }
-
-        .titme-container {
-            width: 100%;
-            max-width: 366px;
-            background: #FFF;
-            margin: 3em auto 4em;
-            cursor: auto;
-            border-radius: 0.25em;
-
-        }
-
-        .a {
-            /* border: 1px solid red; */
+            top: 50%;
+            left: 50%;
             width: 366px;
             height: 373px;
-            padding-left: 0px;
-            margin: 0 auto;
+            margin-left: -205px;
+            margin-top: -250px;
+            background-color: #fff;
+            z-index: 2;
+            display: none;
+            border-radius: 4px;
+        }
 
+        .container {
+           position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgb(206, 203, 203);
+            opacity: 0.6;
+            z-index: 1;
+            display: none;
         }
 
         .loging {
@@ -236,18 +222,87 @@
             margin-top: 46px;
             text-align: center;
         }
+
+        .landing1 {
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            background: rgba(237, 237, 237, 1);
+            margin: 0 auto;
+            margin-top: 48px;
+            text-align: center;
+        }
+
+        .main_tow {
+            /* border:1px solid red; */
+            width: 36px;
+            float: right;
+            margin: 0 auto;
+            margin-top: 18px;
+            margin-left: 10px;
+
+        }
+
+        .singup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 366px;
+            height: 409px;
+            margin-left: -205px;
+            margin-top: -250px;
+            background-color: #fff;
+            z-index: 2;
+            display: none;
+            border-radius: 4px;
+        }
+
+        .singup.come1 {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+        .butt {
+            /* border: 1px solid red; */
+            width: 100px;
+            height: 25px;
+            margin: 0 auto;
+            position: absolute;
+            margin-left: -106px;
+            margin-top: 100px;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .pushtock {
+            color: #4A90E2;
+        }
+
+        .closes{
+            width: 20px;
+            height: 20px;
+            float: right;
+            /* border:1px solid red; */
+        }
     </style>
 </head>
 
 <body>
-        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
     <div class="title">
         <div style="width:920px;margin:0 auto">
             <div class="orokr">okr</div>
-            <div class="userhead">
-                <a href="#0">登陆</a>
-                <a>注册</a>
+
+            <div class="main_tow">
+                <a href="#0" style="text-decoration: none;color:#fff;">注册</a>
             </div>
+
+            <div class="main_nav">
+                <a href="#0" style="text-decoration: none;color:#fff;">登陆</a>
+            </div>
+
         </div>
     </div>
     <div class="frame">
@@ -255,56 +310,70 @@
             <div class="title1">
                 <a>给自己定一个小目标吧！</a>
             </div>
-            <div class="input1" >
-                    <!-- <input style="border:0px" value="请输入你的内容..."> -->
+            <div class="input1">
+                <!-- <input style="border:0px" value="请输入你的内容..."> -->
             </div>
-            
+
         </div>
         <div class="content"></div>
         <div class="detailed"></div>
 
-        <div class="titme">
-            <div class="titme-container">
-                <ul class="a">
-                    <div class="loging">登陆</div>
-                    <input class="inputlong" value="手机号或邮箱">
-                    <input class="inputlong1" value="密码">
-                    <div class="password">忘记密码？</div>
-                    <div class="land">登陆</div>
-                    <div class="landing">没有账号?<a style="color: #4A90E2">注册</a></div>
-                </ul>
-                
+        <div class="container"></div>
+            <div class="titme">
+                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616" style="width: 20px;height: 20px;"></div>
+                <div class="loging">登陆</div>
+                <input class="inputlong" value="手机号或邮箱">
+                <input class="inputlong1" value="密码">
+                <div class="password">忘记密码？</div>
+                <div class="land">登陆</div>
+                <div class="landing">没有账号? <a class="register" style="color: #4A90E2">注册</a></div>
             </div>
-    
+            <div class="singup">
+                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616" style="width: 20px;height: 20px;"></div>
+                <div class="loging">注册</div>
+                <input class="inputlong" value="手机号或邮箱">
+                <input class="inputlong1" value="请输入你的密码">
+                <button class="butt">
+                    <a class="pushtock">获取验证码</a>
+                </button>
+                <input class="inputlong1" value="请输入6位的验证码">
+                <div class="land">登陆</div>
+                <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
         </div>
-        </div>
+
         <script>
-            jQuery(document).ready(function ($) {
-                var $form_modal = $('.titme'),
-                    $form_modal_tab = $('.cd-switcher'),
-                    $tab_login = $form_modal_tab.children('li').eq(0).children('a'),
-                    $tab_signup = $form_modal_tab.children('li').eq(1).children('a'),
-                    $main_nav = $('.main_nav');
+
+            $('.main_nav').click(function () {
+                $('.container').css('display', 'block');
+                $('.titme').css('display', 'block');
+                $('.singup').css('display', 'none');
+            })
+
+            $('.loning').click(function () {
+                $('.container').css('display', 'block');
+                $('.titme').css('display', 'block');
+                $('.singup').css('display', 'none');
+            })
+            
+            $('.register').click(function () {
+                 $('.container').css('display', 'block');
+                $('.titme').css('display', 'none');
+                $('.singup').css('display', 'block');
+            })
+
+            $('.main_tow').click(function () {
+                 $('.container').css('display', 'block');
+                $('.titme').css('display', 'none');
+                $('.singup').css('display', 'block');
+            })
+
+            $('.closes').click(function () {
+                $('.container').css('display', 'none');
+                $('.titme').css('display', 'none');
+                $('.singup').css('display', 'none');
+            });
+
     
-                //弹出窗口
-                $main_nav.on('click', function (event) {
-                    if ($(event.target).is($main_nav)) {
-                        $(this).children('ul').toggleClass('come');
-                    } else {
-                        $main_nav.children('ul').removeClass('come');
-                        $form_modal.addClass('come');
-                        ($(event.target).is('.cd-signup')) ? signup_selected() : login_selected();
-                    }
-    
-                });
-    
-                //关闭弹出窗口 
-                $('.titme').on('click', function (event) {
-                    if ($(event.target).is($form_modal) || $(event.target).is('.cd-close-form')) {
-                        $form_modal.removeClass('come');
-                    }
-                });
-            }); 
         </script>
     </div>
 
