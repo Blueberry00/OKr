@@ -1,0 +1,19 @@
+{
+  "name": "okr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blueberry00/OKr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blueberry00/OKr/issues"
+  },
+  "homepage": "https://github.com/Blueberry00/OKr#readme"
+}
