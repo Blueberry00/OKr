@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .titme {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(211, 211, 214, 0.9);
+            z-index: 3;
+            overflow-y: auto;
+            cursor: pointer;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .titme.come {
+            visibility: visible;
+            opacity: 1;
+
+        }
+
+        .titme-container {
+            width: 100%;
+            max-width: 366px;
+            background: #FFF;
+            margin: 3em auto 4em;
+            cursor: auto;
+            border-radius: 0.25em;
+
+        }
+
+
+        .a {
+            /* border: 1px solid red; */
+            width: 366px;
+            height: 373px;
+            padding-left: 0px;
+            margin: 0 auto;
+
+        }
+
+        .loging {
+            width: 52px;
+            height: 37px;
+            font-size: 26px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(74, 144, 226, 1);
+            line-height: 37px;
+            margin: 0 auto;
+            margin-left: 157px;
+            padding-top: 20px;
+        }
+
+        .inputlong {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .inputlong1 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .password {
+            width: 70px;
+            height: 20px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-left: 260px;
+        }
+
+        .land {
+            width: 269px;
+            height: 34px;
+            background: rgba(74, 144, 226, 1);
+            border-radius: 4px;
+            margin: 0 auto;
+            margin-top: 20px;
+            text-align: center;
+            padding-top: 10px;
+            color: #FFFFFF;
+        }
+
+        .landing {
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            background: rgba(237, 237, 237, 1);
+            margin: 0 auto;
+            margin-top: 46px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <nav class="main_nav">
+        <ul>
+            <li><a href="#00">登录</a></li>
+            <li><a href="">注册</a></li>
+        </ul>
+    </nav>
+    
+    <div class="titme">
+        <div class="titme-container">
+            <ul class="a">
+                <div class="loging">登陆</div>
+                <input class="inputlong" value="手机号或邮箱">
+                <input class="inputlong1" value="密码">
+                <div class="password">忘记密码？</div>
+                <div class="land">登陆</div>
+                <div class="landing">没有账号?<a style="color: #4A90E2">注册</a></div>
+            </ul>
+            
+        </div>
+
+    </div>
+    </div>
+    <script>
+        jQuery(document).ready(function ($) {
+            var $form_modal = $('.titme'),
+                $form_modal_tab = $('.cd-switcher'),
+                $tab_login = $form_modal_tab.children('li').eq(0).children('a'),
+                $tab_signup = $form_modal_tab.children('li').eq(1).children('a'),
+                $main_nav = $('.main_nav');
+
+            //弹出窗口
+            $main_nav.on('click', function (event) {
+                if ($(event.target).is($main_nav)) {
+                    $(this).children('ul').toggleClass('come');
+                } else {
+                    $main_nav.children('ul').removeClass('come');
+                    $form_modal.addClass('come');
+                    ($(event.target).is('.cd-signup')) ? signup_selected() : login_selected();
+                }
+
+            });
+
+            //关闭弹出窗口 
+            $('.titme').on('click', function (event) {
+                if ($(event.target).is($form_modal) || $(event.target).is('.cd-close-form')) {
+                    $form_modal.removeClass('come');
+                }
+            });
+        }); 
+    </script>
+</body>
+
+</html>
