@@ -319,7 +319,14 @@
 
         </div>
         <div class="content"></div>
-        <div class="detailed"></div>
+        {% for okr in okrs %}
+        <div class="detailed">
+            <h1>{{okr.action}}</h1>
+            <p>{{okr.object}}</p>
+        </div>
+        {% endfor %}
+        
+
         <div class="container"></div>
 
         <form action="/api/login" method="POST">
