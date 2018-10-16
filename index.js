@@ -35,6 +35,7 @@ app.post('/api/homePage', function(req,res){
     var created_at = moment().format('YYYY-MM-DD HH:MM:SS');
     
     connection.query('insert into user values (null , ? , ? , "" , "" , ? , ?)', [ phone, password, token ,created_at] , function(err,data){
+    //    console.log('data:' ,data)
         res.send("注册成功");
     });
     });
@@ -43,7 +44,14 @@ app.post('/api/login', function(req,res){
     var phone = req.body.phone;
     var password = req.body.password;
 
-    console.log(phone,password);
+    connection.query('select * from user where phone=? and password=? limit 1',[ phone , password],function(err,data){
+        if(data.length > 0){
+            res.send('登陆成功');
+            // res.render('homePage.html');
+        }else{
+            res.send('对不起，用户名或密码错误')
+        }
+    })
 })
 
 app.get('/details', function (req, res) {
