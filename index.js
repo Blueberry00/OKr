@@ -2,6 +2,7 @@ var express = require('express');
 var nunjucks = require('nunjucks');
 var mysql = require('mysql');
 var moment = require('moment');
+var cookieParser = require('cookie-parser');
 // var request = require('request');
 var bodyParser = require('body-parser');
 
@@ -21,11 +22,13 @@ nunjucks.configure('views',{
 });
 
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(cookieParser());
 
 app.get('/' , function(req,res){
     connection.query('select * from user', function(err,data){
     })
-   res.render('homePage.html')
+    var username = req.cookies.username;
+   res.render('homePage.html',{username:username})
 });
 
 app.post('/api/homePage', function(req,res){
@@ -46,6 +49,8 @@ app.post('/api/login', function(req,res){
 
     connection.query('select * from user where phone=? and password=? limit 1',[ phone , password],function(err,data){
         if(data.length > 0){
+            res.cookie('uid',data[0].id)
+            res.cookie('username',data[0].phone)
             res.send('登陆成功');
             // res.render('homePage.html');
         }else{
