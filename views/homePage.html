@@ -20,7 +20,7 @@
         body {
             margin: 0;
         }
-        
+
 
         .title {
             width: 100%;
@@ -139,7 +139,7 @@
         }
 
         .container {
-           position: fixed;
+            position: fixed;
             top: 0;
             bottom: 0;
             left: 0;
@@ -281,11 +281,20 @@
             color: #4A90E2;
         }
 
-        .closes{
+        .closes {
             width: 20px;
             height: 20px;
             float: right;
             /* border:1px solid red; */
+        }
+
+        .push {
+            /* border: 1px solid red; */
+            float: right;
+            margin: 0 auto;
+            width: 60px;
+            height: 26px;
+            margin-right: 16px;
         }
     </style>
 </head>
@@ -313,10 +322,13 @@
             <div class="title1">
                 <a>给自己定一个小目标吧！</a>
             </div>
-            <div class="input1">
-                <!-- <input style="border:0px" value="请输入你的内容..."> -->
-            </div>
-
+            <form action="/api/articles" method="POST">
+            <textarea class="input1" name="object">
+               请输入你的内容...
+            </textarea>
+            <button class="push"><a style="text-align: center;">发布</a>
+            </button>
+        </form>
         </div>
         <div class="content"></div>
         {% for okr in okrs %}
@@ -325,13 +337,14 @@
             <p>{{okr.object}}</p>
         </div>
         {% endfor %}
-        
+
 
         <div class="container"></div>
 
         <form action="/api/login" method="POST">
             <div class="titme">
-                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616" style="width: 20px;height: 20px;"></div>
+                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                        style="width: 20px;height: 20px;"></div>
                 <div class="loging">登陆</div>
                 <input class="inputlong" name="phone" value="手机号或邮箱">
                 <input class="inputlong1" name="password" value="密码">
@@ -341,9 +354,10 @@
             </div>
         </form>
 
-            <form action="/api/homePage" method="POST">
+        <form action="/api/homePage" method="POST">
             <div class="singup">
-                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616" style="width: 20px;height: 20px;"></div>
+                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                        style="width: 20px;height: 20px;"></div>
                 <div class="loging">注册</div>
                 <input class="inputlong" name="phone" value="手机号或邮箱">
                 <input class="inputlong1" name="password" value="请输入你的密码">
@@ -353,8 +367,8 @@
                 <input class="inputlong1" value="请输入6位的验证码">
                 <button class="land">注册</button>
                 <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
-        </div>
-    </form>
+            </div>
+        </form>
 
         <script>
             $('.main_nav').click(function () {
@@ -368,15 +382,15 @@
                 $('.titme').css('display', 'block');
                 $('.singup').css('display', 'none');
             })
-            
+
             $('.register').click(function () {
-                 $('.container').css('display', 'block');
+                $('.container').css('display', 'block');
                 $('.titme').css('display', 'none');
                 $('.singup').css('display', 'block');
             })
 
             $('.main_tow').click(function () {
-                 $('.container').css('display', 'block');
+                $('.container').css('display', 'block');
                 $('.titme').css('display', 'none');
                 $('.singup').css('display', 'block');
             })
@@ -387,7 +401,7 @@
                 $('.singup').css('display', 'none');
             });
 
-            
+
         </script>
     </div>
 

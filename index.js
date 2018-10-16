@@ -43,6 +43,17 @@ app.post('/api/homePage', function (req, res) {
     });
 });
 
+app.post('/api/articles',function(req,res){
+    var title = req.body.object;
+    // var uid = req.body.user_id;
+    var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
+    console.log(title,created_at);
+
+    connection.query('insert into okr values (null,?,"","","",?)', [title, created_at], function (err, data) {
+        res.send("发布成功");
+    });
+})
+
 app.post('/api/login', function (req, res) {
     var phone = req.body.phone;
     var password = req.body.password;
@@ -51,6 +62,7 @@ app.post('/api/login', function (req, res) {
         if (data.length > 0) {
             res.cookie('uid', data[0].id)
             res.cookie('username', data[0].phone)
+            
             res.send('登陆成功');
             // res.render('homePage.html');
         } else {
