@@ -27,7 +27,16 @@ app.use(cookieParser());
 app.get('/', function (req, res) {
     connection.query('select * from okr', function (err, data) {
         var username = req.cookies.username;
+        
         res.render('homePage.html', {username: username, okrs : data, title:'首页'});
+    })
+});
+
+app.get('/details', function (req, res) {
+    connection.query('select * from okr', function (err, data) {
+        var username = req.cookies.username;
+        
+        res.render('details.html', {username: username, okrs : data, title:'详情'});
     })
 });
 
@@ -45,9 +54,10 @@ app.post('/api/homePage', function (req, res) {
 
 app.post('/api/articles',function(req,res){
     var title = req.body.object;
+    // var thehead = req.body.titlehead;
     // var uid = req.body.user_id;
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
-    console.log(title,created_at);
+    // console.log(title,created_at);
 
     connection.query('insert into okr values (null,?,"","","",?)', [title, created_at], function (err, data) {
         res.send("发布成功");
@@ -64,12 +74,14 @@ app.post('/api/login', function (req, res) {
             res.cookie('username', data[0].phone)
             
             res.send('登陆成功');
+
             // res.render('homePage.html');
         } else {
             res.send('对不起，用户名或密码错误')
         }
     })
 })
+
 
 app.get('/details', function (req, res) {
     res.render('details.html')

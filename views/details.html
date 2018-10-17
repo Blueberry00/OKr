@@ -1,4 +1,4 @@
-<!-- 详情页 -->
+<!-- 首页 -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +21,7 @@
             margin: 0;
         }
 
+
         .title {
             width: 100%;
             height: 56px;
@@ -40,23 +41,43 @@
             position: relative;
         }
 
-        .userhead {
+        .main_nav {
             display: inline;
-            /* border: 1px solid black; */
-            width: 100px;
             height: 34px;
             line-height: 34px;
             margin-top: 11px;
             float: right;
-            /* border:1px solid red; */
         }
 
-        .userhead>a {
+        .main_nav>ul {
             width: 32px;
             height: 22px;
             font-size: 16px;
             margin-left: 10px;
             color: aliceblue;
+        }
+
+        .main_nav>ul>li {
+            /* border: 1px solid red; */
+        }
+
+        .main_nav>a {
+            margin: 0 auto;
+
+        }
+
+        .titme {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 366px;
+            height: 373px;
+            margin-left: -205px;
+            margin-top: -250px;
+            background-color: #fff;
+            z-index: 2;
+            display: none;
+            border-radius: 4px;
         }
 
         .frame {
@@ -155,27 +176,191 @@
             height: 36px;
             background: rgba(238, 238, 238, 1);
             border-radius: 4px;
-            color:rgb(163, 160, 160);
+            color: rgb(163, 160, 160);
             margin: 0 auto;
             margin-left: 15px;
         }
 
-        .more{
-            border:1px solid #D9D9D9;
+        .more {
+            border: 1px solid #D9D9D9;
             margin: 0 auto;
             margin-bottom: 20px;
+        }
+
+        .container {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgb(206, 203, 203);
+            opacity: 0.6;
+            z-index: 1;
+            display: none;
+        }
+
+        .loging {
+            width: 52px;
+            height: 37px;
+            font-size: 26px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(74, 144, 226, 1);
+            line-height: 37px;
+            margin: 0 auto;
+            margin-left: 157px;
+            padding-top: 20px;
+        }
+
+        .inputlong {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .inputlong1 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .word {
+            width: 70px;
+            height: 20px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-left: 260px;
+        }
+
+        .land {
+            width: 269px;
+            height: 50px;
+            background: rgba(74, 144, 226, 1);
+            border-radius: 4px;
+            margin: 0 auto;
+            margin-top: 20px;
+            text-align: center;
+            margin-left: 48px;
+            padding-top: 10px;
+            color: #FFFFFF;
+        }
+
+        .landing {
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            background: rgba(237, 237, 237, 1);
+            margin: 0 auto;
+            margin-top: 46px;
+            text-align: center;
+        }
+
+        .landing1 {
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            background: rgba(237, 237, 237, 1);
+            margin: 0 auto;
+            margin-top: 48px;
+            text-align: center;
+        }
+
+        .main_tow {
+            /* border:1px solid red; */
+            width: 36px;
+            float: right;
+            margin: 0 auto;
+            margin-top: 18px;
+            margin-left: 10px;
+
+        }
+
+        .singup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 366px;
+            height: 409px;
+            margin-left: -205px;
+            margin-top: -250px;
+            background-color: #fff;
+            z-index: 2;
+            display: none;
+            border-radius: 4px;
+        }
+
+        .singup.come1 {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+        .butt {
+            /* border: 1px solid red; */
+            width: 100px;
+            height: 25px;
+            margin: 0 auto;
+            position: absolute;
+            margin-left: -106px;
+            margin-top: 100px;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .pushtock {
+            color: #4A90E2;
+        }
+
+        .closes {
+            width: 20px;
+            height: 20px;
+            float: right;
+            /* border:1px solid red; */
+        }
+
+        .interface {
+            float: right;
+            width: 40px;
+            height: 40px;
+            /* border: 1px solid red; */
         }
     </style>
 </head>
 
 <body>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+    <div class="interface">{{username}}</div>
     <div class="title">
         <div style="width:920px;margin:0 auto">
             <div class="orokr">okr</div>
-            <div class="userhead">
-                <a>登陆</a>
-                <a>注册</a>
+
+            <div class="main_tow nide">
+                <a href="#0" style="text-decoration: none;color:#fff;">注册</a>
             </div>
+            <div class="main_nav nide">
+                <a href="#0" style="text-decoration: none;color:#fff;">登陆</a>
+            </div>
+
         </div>
     </div>
     <div class="frame">
@@ -188,10 +373,83 @@
 
             <input class="input1">
             <button class="comment1">评论</button>
-                
+
             <div class="more"></div>
         </div>
-      
+
+    </div>
+
+    <div class="container"></div>
+
+    <form action="/api/login" method="POST">
+        <div class="titme">
+            <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                    style="width: 20px;height: 20px;"></div>
+            <div class="loging">登陆</div>
+            <input class="inputlong" name="phone" autocomplete="off" placeholder="手机或邮箱">
+            <input class="inputlong1" name="password" autocomplete="off" placeholder="密码">
+            <div class="word">忘记密码？</div>
+            <button class="land">登陆</button>
+            <div class="landing">没有账号? <a class="register" style="color: #4A90E2">注册</a></div>
+        </div>
+    </form>
+
+    <form action="/api/homePage" method="POST">
+        <div class="singup">
+            <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                    style="width: 20px;height: 20px;"></div>
+            <div class="loging">注册</div>
+            <input class="inputlong" name="phone" autocomplete="off" placeholder="手机号或邮箱">
+            <input class="inputlong1" name="password" autocomplete="off" placeholder="请输入你的密码">
+            <button class="butt">
+                <a class="pushtock">获取验证码</a>
+            </button>
+            <input class="inputlong1" autocomplete="off" name="pushtock" placeholder="请输入6位的验证码">
+            <button class="land">注册</button>
+            <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
+        </div>
+    </form>
+
+    <script>
+        $('.main_nav').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'block');
+            $('.singup').css('display', 'none');
+        })
+
+        $('.loning').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'block');
+            $('.singup').css('display', 'none');
+        })
+
+        $('.register').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'none');
+            $('.singup').css('display', 'block');
+        })
+
+        $('.main_tow').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'none');
+            $('.singup').css('display', 'block');
+        })
+
+        $('.closes').click(function () {
+            $('.container').css('display', 'none');
+            $('.titme').css('display', 'none');
+            $('.singup').css('display', 'none');
+        });
+
+            // if ('.interface' !== 'username') {
+            //     $('.nide').css('display', 'block');
+            //     console.log(222)
+            // } else {
+            //     $('.nide').css('display', 'none');
+            //     console.log(3333)
+            // }
+
+    </script>
     </div>
 
 </html>
