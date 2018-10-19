@@ -92,11 +92,12 @@
 
         .detailed {
             width: 610px;
-            height: 158px;
+            height: 100;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             margin-top: 10px;
             float: left;
+            /* padding: 10px; */
         }
 
         .title1 {
@@ -304,6 +305,11 @@
             height: 40px;
             /* border: 1px solid red; */
         }
+
+        .homecontent {
+            margin: 0 auto;
+            padding: 10px;
+        }
     </style>
 </head>
 
@@ -313,7 +319,7 @@
     <div class="interface">{{phone}}</div>
     <div class="title">
         <div style="width:920px;margin:0 auto">
-            <div class="orokr">okr</div>
+            <div class="orokr"><a style="text-decoration:none;color: #FFFFFF" href="/">okr</a></div>
 
             <div class="main_tow nide">
                 <a href="#0" style="text-decoration: none;color:#fff;">注册</a>
@@ -326,23 +332,31 @@
     </div>
     <div class="frame">
         <div class="edit">
-                <form action="/api/articles" method="POST">
-            <div class="title1">
-                <input name="action" autocomplete="off" placeholder="给自己定一个小目标吧！">
-            </div>
+            <form action="/api/articles" method="POST">
+                <div class="title1">
+                    <input name="action" autocomplete="off" placeholder="给自己定一个小目标吧！">
+                </div>
                 <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
                 <button class="push"><a style="text-align: center;">发布</a>
                 </button>
             </form>
         </div>
 
+
         <div class="content"></div>
         {% for okr in okrs %}
         <div class="detailed">
-            <div style="border:1px solid rgb(92, 91, 91);width: 40px;height: 40px;margin-left: 10px;margin-top: 10px;float: left"></div>
-        <h3 style="float: left;margin-left: 20px;margin-right:20px;">{{okr.phone}}</h3>
-            <h2>{{okr.action}}</h2>
-            <a href="/details/{{okr.id}}" style="margin-left: 10px;">{{okr.object}}</a>
+            <div style="height: 60px;line-height: 60px;">
+                <div>
+                    <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
+                </div>
+                <h3 style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;">{{okr.phone}}</h3>
+                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 180px;color:#999999;font-size:14px;">{{okr.created_at}}</a>
+            </div>
+            <div class="homecontent">
+                <a href="/details/{{okr.id}}" style="text-decoration:none;color:#333333;font-size:16px;font-weight: bold;">{{okr.object}}</a>
+                <!-- <div style="border:1px solid red;"></div> -->
+            </div>
         </div>
         {% endfor %}
 
