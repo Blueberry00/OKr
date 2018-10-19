@@ -310,7 +310,7 @@
 <body>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
-    <div class="interface">{{username}}</div>
+    <div class="interface">{{phone}}</div>
     <div class="title">
         <div style="width:920px;margin:0 auto">
             <div class="orokr">okr</div>
@@ -326,24 +326,25 @@
     </div>
     <div class="frame">
         <div class="edit">
+                <form action="/api/articles" method="POST">
             <div class="title1">
-                <input name="titlehead" autocomplete="off" placeholder="给自己定一个小目标吧！">
+                <input name="action" autocomplete="off" placeholder="给自己定一个小目标吧！">
             </div>
-            <form action="/api/articles" method="POST">
                 <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
-
                 <button class="push"><a style="text-align: center;">发布</a>
                 </button>
             </form>
         </div>
+
         <div class="content"></div>
         {% for okr in okrs %}
         <div class="detailed">
-            <h1>{{okr.action}}</h1>
-            <p>{{okr.object}}</p>
+            <div style="border:1px solid rgb(92, 91, 91);width: 40px;height: 40px;margin-left: 10px;margin-top: 10px;float: left"></div>
+        <h3 style="float: left;margin-left: 20px;margin-right:20px;">{{okr.phone}}</h3>
+            <h2>{{okr.action}}</h2>
+            <p style="margin-left: 10px;">{{okr.object}}</p>
         </div>
         {% endfor %}
-
 
         <div class="container"></div>
 
@@ -370,7 +371,7 @@
                 <button class="butt">
                     <a class="pushtock">获取验证码</a>
                 </button>
-                <input class="inputlong1" autocomplete="off"  name="pushtock" placeholder="请输入6位的验证码">
+                <input class="inputlong1" autocomplete="off" placeholder="请输入6位的验证码">
                 <button class="land">注册</button>
                 <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
             </div>
