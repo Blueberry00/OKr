@@ -31,11 +31,25 @@ app.get('/', function (req, res) {
     from okr`, function (err, data) {
             var phone = req.cookies.username;
 
-            console.log('data:', data)
+            // console.log('data:', data)
  
             res.render('homePage.html', { phone: phone, okrs: data, title: '首页' });
         })
 });
+
+app.get('/details/:id', function (req, res) {
+
+    var id = req.params.id;
+   connection.query(`select *,
+   (select phone from user where user.id = okr.user_id) as phone
+   from okr where id=? limit 1`,[id], function(err,data) {
+    // console.log('okr data: ' , data)
+
+    res.render('details.html',{okr: data[0] });
+   })
+ 
+});
+
 
 app.get('/details', function (req, res) {
     connection.query('select * from okr', function (err, data) {
@@ -45,7 +59,22 @@ app.get('/details', function (req, res) {
     })
 });
 
+
+app.post('/api/comments', function (req, res) {
+
+    var oke_id = id;
+    var uid = req.cookies.uid;
+    var writeIn = req.body.write;
+    var created_at = moment().format('YYYY-MM-DD HH:MM:SS');
+
+    connection.query('insert into comment values (null,? , ? , ? , ?)',[ oke_id,uid, writeIn, created_at] , function (err, data) {
+        console.log('data:', data)
+        res.send("评论成功");
+    })
+});
+
 app.post('/api/homePage', function (req, res) {
+    
     var phone = req.body.phone;
     var password = req.body.password;
     var created_at = moment().format('YYYY-MM-DD HH:MM:SS');
@@ -60,7 +89,7 @@ app.post('/api/articles',function(req,res){
     var title = req.body.object;
     var actions = req.body.action;
     var user_name = req.cookies.uid;
-    // var use = req.cookies.username;
+    // var times = req.cookies.time;
 
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
     // console.log(title,actions,created_at);
@@ -76,9 +105,10 @@ app.post('/api/login', function (req, res) {
 
     connection.query('select * from user where phone=? and password=? limit 1', [phone, password], function (err, data) {
         if (data.length > 0) {
-            res.cookie('uid', data[0].id)
-            res.cookie('user_name',data[0].username)
-            res.cookie('username', data[0].phone)
+            res.cookie('uid', data[0].id);
+            res.cookie('user_name',data[0].username);
+            res.cookie('username', data[0].phone);
+            res.cookie('time',data[0].created_at);
 
             res.send('登陆成功');
             // res.render('homePage.html');
