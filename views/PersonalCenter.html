@@ -127,7 +127,7 @@
 
         .thirdParts {
             width: 552px;
-            height: 459px;
+            height: 100;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             /* border:1px solid red; */
@@ -143,6 +143,15 @@
             margin: 0 auto;
             margin-left: 18px;
             padding-top: 18px;
+        }
+
+        .okrOne{
+            /* border:1px solid blue; */
+            width: 514px;
+            height: 100;
+            margin: 0 auto;
+            margin-left: 18px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -169,6 +178,15 @@
     <div class="outerFrame">
         <div class="thirdParts">
             <div class="or2okr">OKr</div>
+            <div style="border:1.5px solid #4A90E2;width: 40px;margin-left: 15px;"></div>
+            {% for okr in okrs %}
+            <p style="border:1px solid #F3F3F3;margin: 18px;"></p>
+            <div class="okrOne">
+                <div style="color: #999999;font-size:14px;float: left;">发布了okr</div>
+                <div style="color: #999999;font-size:14px;margin-left: 400px">发布于</div>
+                <div style="color: #333333;font-size:14px;margin-top: 10px;">{{okr.object}}</div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </body>

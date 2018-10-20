@@ -1,4 +1,4 @@
-<!-- 首页 -->
+<!-- 详情 -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +94,7 @@
         .edit {
             /* border:1px solid red; */
             width: 610px;
-            height: 207px;
+            height: 100;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             margin: 0 auto;
@@ -111,7 +111,7 @@
 
         .detailed {
             width: 610px;
-            height: 552px;
+            height: 100%px;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             margin-top: 10px;
@@ -343,16 +343,34 @@
             height: 40px;
             /* border: 1px solid red; */
         }
+
+        .contant {
+            border: 1px solid rgb(146, 145, 145);
+            height: 120px;
+            margin: 0 auto;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .secondPart {
+            /* border:1px solid red; */
+            float: left;
+            height: 100;
+            width: 610px;
+            margin: 0 auto;
+            margin-top: 10px;
+            background-color: #FFFFFF;
+        }
     </style>
 </head>
 
 <body>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
-    <div class="interface">{{username}}</div>
+    <div class="interface">{{phone}}</div>
     <div class="title">
         <div style="width:920px;margin:0 auto">
-            <div class="orokr">okr</div>
+            <div class="orokr"><a style="text-decoration:none;color: #FFFFFF" href="/">okr</a></div>
 
             <div class="main_tow nide">
                 <a href="#0" style="text-decoration: none;color:#fff;">注册</a>
@@ -365,16 +383,67 @@
     </div>
     <div class="frame">
         <div class="edit">
+            <div style="height: 60px;line-height: 60px;">
+                <div>
+                    <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
+                </div>
+                <h3 style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;">{{okr.phone}}</h3>
+                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 180px;color:#999999;font-size:14px;">{{okr.created_at}}</a>
+                <p style="margin-left: 10px;">{{okr.times}}</p>
+            </div>
+            <div style="height: 100;margin-left: 10px;margin-right: 10px;font-weight: bold;font-size:16px;">
+                {{okr.object}}
+            </div>
+            <div style="height: 20px;margin: 10px;">
+                <div style="width: 40px;height: 20px;color:#333333;font-weight: bold;font-size:14px;">点赞</div>
+            </div>
+
         </div>
+
         <div class="content"></div>
+        <div class="secondPart">
+            <div style="width: 610px;float:left">
+                <div style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333"><a>
+                        先天下之忧而忧，后天下之乐而乐；
+                    </a></div>
+                <div style="margin:10px;float: right;font-size:14px;font-weight: bold;color:#333333;" class="clicks">展开</div>
+            </div>
+
+        </div>
+
+        <div class="secondPart">
+            <div style="width: 610px;float:left">
+                <div style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333"><a>
+                        1.时时跟进OKR： 在交谈需要确定如何去达<p>
+                        2.时时跟进OKR： 在交谈需要确定如何去达<p>
+                        3.时时跟进OKR： 在交谈需要确定如何去达<p>
+                        4.时时跟进OKR： 在交谈需要确定如何去达
+                    </a></div>
+                <div style="margin:10px;float: right;font-size:14px;font-weight: bold;color:#333333;">展开</div>
+            </div>
+        </div>
+
+        <div class="secondPart">
+            <div style="width: 610px;float:left">
+                <div style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333"><a>
+                        这是key result 2的actio
+                    </a></div>
+            </div>
+        </div>
+
         <div class="detailed">
             <div class="comment">评论(...)</div>
             <div class="line1"></div>
+            <form action="/api/comments" method="POST">
+                <input class="input1" name="write" autocomplete="off" placeholder="请输入你的评论内容...">
+                <button class="comment1">评论</button>
+            </form>
 
-            <input class="input1">
-            <button class="comment1">评论</button>
+            <!-- {% for comment in commen %}
+            <div class="contant">{{comment.content}}</div>
+            {% endfor %} -->
+            <!-- <div class="more"></div> -->
 
-            <div class="more"></div>
         </div>
 
     </div>

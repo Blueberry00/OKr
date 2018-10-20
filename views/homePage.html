@@ -75,7 +75,6 @@
         .edit {
             /* border:1px solid red; */
             width: 610px;
-            height: 207px;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             margin: 0 auto;
@@ -295,8 +294,7 @@
             margin: 0 auto;
             width: 60px;
             height: 26px;
-            margin-right: 21px;
-            margin-top: 10px;
+            margin: 20px;
         }
 
         .interface {
@@ -334,13 +332,21 @@
         <div class="edit">
             <form action="/api/articles" method="POST">
                 <div class="title1">
-                    <input name="action" autocomplete="off" placeholder="给自己定一个小目标吧！">
+                   <h4>给自己定个小目标吧！</h4>
                 </div>
                 <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
+                <div>
+                    <input class="input1" name="key_results" autocomplete="off" placeholder="K请输入你的内容...">
+                </div>
+                <div>
+                    <input class="input1" name="action" autocomplete="off" placeholder="R请输入你的内容...">
+                </div>
                 <button class="push"><a style="text-align: center;">发布</a>
                 </button>
             </form>
+
         </div>
+
 
 
         <div class="content"></div>
