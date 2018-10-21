@@ -388,7 +388,7 @@
                     <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
                 </div>
                 <h3 style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;">{{okr.phone}}</h3>
-                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 180px;color:#999999;font-size:14px;">{{okr.created_at}}</a>
+                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{okr.created_at}}</a>
                 <p style="margin-left: 10px;">{{okr.times}}</p>
             </div>
             <div style="height: 100;margin-left: 10px;margin-right: 10px;font-weight: bold;font-size:16px;">
@@ -404,22 +404,32 @@
         <div class="secondPart">
             <div style="width: 610px;float:left">
                 <div style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333"><a>
-                        先天下之忧而忧，后天下之乐而乐；
+                        O
                     </a></div>
-                <div style="margin:10px;float: right;font-size:14px;font-weight: bold;color:#333333;" class="clicks">展开</div>
+
+                <a class="showOro" style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333;display: none;">
+                    先天下之忧而忧，后天下之乐而乐<p>
+                        先天下之忧而忧，后天下之乐而乐
+                    </a>
+                <a style="text-decoration:none;margin:10px;margin-top:0px;float: right;font-size:14px;font-weight: bold;color:#333333;" class="clicks"
+                    onclick="showOrocode()" href="#">展开</a>
             </div>
 
         </div>
 
         <div class="secondPart">
             <div style="width: 610px;float:left">
-                <div style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333"><a>
-                        1.时时跟进OKR： 在交谈需要确定如何去达<p>
-                        2.时时跟进OKR： 在交谈需要确定如何去达<p>
-                        3.时时跟进OKR： 在交谈需要确定如何去达<p>
-                        4.时时跟进OKR： 在交谈需要确定如何去达
-                    </a></div>
-                <div style="margin:10px;float: right;font-size:14px;font-weight: bold;color:#333333;">展开</div>
+                <div style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333">
+                    <a>K</a>
+                    <p>
+                        <a class="showdiv" style="display: none">
+                            1.时时跟进OKR： 在交谈需要确定如何去达<p>
+                                2.时时跟进OKR： 在交谈需要确定如何去达
+            
+                        </a>
+                </div>
+                <a style="text-decoration:none;margin:10px;margin-top:0px;float: right;font-size:14px;font-weight: bold;color:#333333;"
+                    onclick="showHideCode()" href="#">展开</a>
             </div>
         </div>
 
@@ -510,6 +520,15 @@
             $('.singup').css('display', 'none');
         });
 
+        function showHideCode() {
+            $(".showdiv").toggle();
+
+        }
+
+        function showOrocode() {
+            $(".showOro").toggle();
+
+        }
             // if ('.interface' !== 'username') {
             //     $('.nide').css('display', 'block');
             //     console.log(222)
