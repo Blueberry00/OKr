@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var connection = mysql.createConnection({
     host: '192.168.0.110',
-    user: 'ubuntu',
+    user: 'root',
     password: '88888888',
     database: 'okr'
 });
@@ -37,6 +37,7 @@ app.get('/', function (req, res) {
 
 app.get('/details/:id', function (req, res) {
     var id = req.params.id;
+  
     connection.query(`select *,
    (select phone from user where user.id = okr.user_id) as phone
    from okr where id=? limit 1`, [id], function (err, data) {
@@ -47,38 +48,29 @@ app.get('/details/:id', function (req, res) {
 });
 
 
-app.get('/center', function (req, res) {
-    res.cookie("test", "value");
-    connection.query(`select id, object,key_results,action, created_at,
+// ????
+app.get('/presonal/:id', function (req, res) {
+    var user_id = req.params.id;
+    
+    connection.query(`select *,
     (select phone from user where user.id = okr.user_id) as phone
-    from okr`, function (err, data) {
-            var user_id = req.cookies.uid;
-            res.cookie('user_ids', user_id);
+    from okr where user_id=?`,[user_id], function (err, data) {
             var phone = req.cookies.username;
-            // data.user_id = phone;
-            console.log('data: ', data)
-            res.render('personalCenter.html', { phone: phone, okrs: data, });
+            res.render('personalCenter.html', {phone:phone,okrs:data});
         })
 });
 
-
-// app.get('/center', function (req, res) {
-//     res.cookie("test", "value");
-//     var user_id = req.cookies.uid;
-//     var phone = req.cookies.username;
-
-//     connection.query(`select id, object,key_results,action, created_at,
-//     (select phone from user where user.id = okr.user_id) as phone
-//     from okr`, function (err, data) {
-
-//     connection.query('select * from okr where user_id = phone',user_id,function(err,data){
-
-//            console.log('data: ',data)
-//             res.render('personalCenter.html', { phone: phone, okrs: data,});
-//         })
-// });
+app.get('/api/detailsokr/:id',function (req,res){
+    var id = req.params.id;
+connection.query(`select * from okr where id=?`,[id],function(err,data){
+    console.log('data:', data)
+    res.json(data[0]);
+})
+})
 
 
+
+//评论
 app.post('/api/comments', function (req, res) {
     var okr_id = req.cookies.okr_id;
     var uid = req.cookies.uid;
@@ -90,6 +82,7 @@ app.post('/api/comments', function (req, res) {
         res.send("评论成功");
     })
 });
+//注册
 
 app.post('/api/homePage', function (req, res) {
     var phone = req.body.phone;
@@ -103,6 +96,7 @@ app.post('/api/homePage', function (req, res) {
         res.send("注册成功");
     });
 });
+//发布
 
 app.post('/api/articles', function (req, res) {
     var title = req.body.object;
@@ -116,7 +110,7 @@ app.post('/api/articles', function (req, res) {
     });
 });
 
-
+// 登陆
 app.post('/api/login', function (req, res) {
     var phone = req.body.phone;
     var password = req.body.password;
@@ -138,7 +132,6 @@ app.post('/api/login', function (req, res) {
         }
     })
 })
-
 
 
 
