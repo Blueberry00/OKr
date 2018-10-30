@@ -192,6 +192,34 @@
             border-right: 0px;
         }
 
+        .registers1 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .registers2 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
         .word {
             width: 70px;
             height: 20px;
@@ -204,6 +232,19 @@
         }
 
         .land {
+            width: 269px;
+            height: 50px;
+            background: rgba(74, 144, 226, 1);
+            border-radius: 4px;
+            margin: 0 auto;
+            margin-top: 20px;
+            text-align: center;
+            margin-left: 48px;
+            padding-top: 10px;
+            color: #FFFFFF;
+        }
+
+         .registers{
             width: 269px;
             height: 50px;
             background: rgba(74, 144, 226, 1);
@@ -352,7 +393,6 @@
         <div class="containe"></div>
         <div class="container"></div>
 
-
         <form action="/api/login" method="POST">
             <div class="titme">
                 <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
@@ -366,24 +406,23 @@
             </div>
         </form>
 
-        <form action="/api/homePage" method="POST">
-            <div class="singup">
-                <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
-                        style="width: 20px;height: 20px;"></div>
-                <div class="loging">注册</div>
-                <input class="inputlong" name="phone" autocomplete="off" placeholder="手机号或邮箱">
-                <input class="inputlong1" name="password" autocomplete="off" placeholder="请输入你的密码">
-                <button class="butt">
-                    <a class="pushtock">获取验证码</a>
-                </button>
-                <input class="inputlong1" autocomplete="off" placeholder="请输入6位的验证码">
-                <button class="land">注册</button>
-                <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
-            </div>
-        </form>
+        <div class="singup">
+            <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                    style="width: 20px;height: 20px;"></div>
+            <div class="loging">注册</div>
+            <input class="registers1" id="registers1" autocomplete="off" placeholder="手机号或邮箱">
+            <input class="registers2" id="registers2" autocomplete="off" placeholder="请输入你的密码">
+            <button class="butt">
+                <a class="pushtock">获取验证码</a>
+            </button>
+            <input class="inputlong1" autocomplete="off" placeholder="请输入6位的验证码">
+            <button class="registers" onclick="insert()">注册</button>
+            <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
+        </div>
+
         <div id="actions"></div>
-            {% raw %}
-            <script type="template" id="template">
+        {% raw %}
+        <script type="template" id="template">
             {{#actions}}
             <div class="detailed">
                     <div style="height: 60px;line-height: 60px;">
@@ -400,8 +439,8 @@
                 </div>
         {{/actions}}
     </script> {% endraw %}
-        
-        
+
+
 
         <script>
             $('.main_nav').click(function () {
@@ -447,12 +486,37 @@
             var tContent = $t.text();
 
             $.get('/api/homepage', function (res) {
-                
+
                 var data = res.data;
                 // console.log(data);
                 var html = Mustache.render(tContent, { actions: data });
                 $('#actions').append(html);
             })
+
+            function insert() {
+                $('.registers').click(function () {
+
+                    var name = $('#registers1').val();
+                    var pwd = $('#registers2').val();
+                    console.log(name, pwd);
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: "TEXT",
+                        url: "/api/homePage",
+                        cache: false,
+                        data: { phone: name, password: pwd },
+                        success: function (data) {
+                            alert("注册成功!");
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert('注册失败！');
+                            window.location.reload();
+                        }
+                    });
+                });
+            }
         </script>
     </div>
 

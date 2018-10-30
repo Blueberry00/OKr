@@ -158,9 +158,11 @@ app.post('/api/homePage', function (req, res) {
 
     connection.query('insert into user values (null, ?, ?, ?, "", ?, ?)', [phone, password, username, token, created_at], function (err, data) {
         // console.log('data:', data);
-        res.send("注册成功");
+        res.render("homePage.html");
     });
 });
+
+
 //发布
 
 app.post('/api/articles', function (req, res) {
