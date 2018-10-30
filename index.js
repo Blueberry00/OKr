@@ -3,7 +3,7 @@ var nunjucks = require('nunjucks');
 var mysql = require('mysql');
 var moment = require('moment');
 var cookieParser = require('cookie-parser');
-// var request = require('request');
+var request = require('request');
 var bodyParser = require('body-parser');
 
 var connection = mysql.createConnection({
@@ -24,18 +24,23 @@ nunjucks.configure('views', {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get('/', function (req, res) {
+app.get('/api/homepage', function (req, res) {
     res.cookie("test", "value");
-    connection.query(`select id, object,key_results,action, created_at,
+    connection.query(`select *,
     (select phone from user where user.id = okr.user_id) as phone
     from okr`, function (err, data) {
             var phone = req.cookies.username;
 
-            res.render('homePage.html', { phone: phone, okrs: data, title: '首页' });
+            res.json({data});
+            // console.log(data)
         })
 });
 
-app.get('/details/:id', function (req, res) {
+app.get('/',function(req,res){
+    res.render('homePage.html')
+})
+
+app.get('/api/details/:id',function(req,res){
     var id = req.params.id;
   
     connection.query(`select *,
@@ -43,9 +48,27 @@ app.get('/details/:id', function (req, res) {
    from okr where id=? limit 1`, [id], function (err, data) {
             res.cookie('okr_id', id);
             var phone = req.cookies.username;
-            res.render('details.html', { phone: phone, okr: data[0], id: id })
+            res.json({data});
+
         })
-});
+})
+
+app.get('/details',function(req,res){
+    
+    res.render('details.html')
+})
+
+// app.get('/details/:id', function (req, res) {
+//     var id = req.params.id;
+  
+//     connection.query(`select *,
+//    (select phone from user where user.id = okr.user_id) as phone
+//    from okr where id=? limit 1`, [id], function (err, data) {
+//             res.cookie('okr_id', id);
+//             var phone = req.cookies.username;
+//             res.render('details.html', { phone: phone, okr: data[0], id: id })
+//         })
+// });
 
 
 // ????
@@ -60,13 +83,24 @@ app.get('/presonal/:id', function (req, res) {
         })
 });
 
-app.get('/api/detailsokr/:id',function (req,res){
-    var id = req.params.id;
-connection.query(`select * from okr where id=?`,[id],function(err,data){
-    console.log('data:', data)
-    res.json(data[0]);
-})
-})
+
+// app.get('/detailsokr/:id',function (req ,res){
+//     var id = req.params.id;
+//     connection.query(`select * from okr where id=?`,[id],function (err,data){
+//         console.log('data:',data)
+//         res.json(data[0]);
+//     })
+//     // res.render('detailsokr.html');
+// })
+
+
+
+// app.get('/api/*', function (req, res){
+//     var url = req.originalUrl;
+//     request.get('localhost:3000' + url, function(err,resp){
+//         res.send(JSON.parse(resp.body))
+//     })
+// })
 
 
 
@@ -140,9 +174,9 @@ app.post('/api/login', function (req, res) {
 //     res.render('details.html')
 // });
 
-// app.get('/center', function (req, res) {
-//     res.render('PersonalCenter.html')
-// });
+app.get('/center', function (req, res) {
+    res.render('PersonalCenter.html')
+});
 
 
 

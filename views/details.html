@@ -91,7 +91,7 @@
             margin-top: 20px;
         }
 
-        .edit {
+        #edit {
             /* border:1px solid red; */
             width: 610px;
             height: 100;
@@ -365,7 +365,8 @@
 </head>
 
 <body>
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
     <div class="interface">{{phone}}</div>
     <div class="title">
@@ -382,23 +383,27 @@
         </div>
     </div>
     <div class="frame">
-        <div class="edit">
+        <div id="edit"></div>
+            {% raw %}
+            <script type="template" id="template">
+                {{#edit}}
             <div style="height: 60px;line-height: 60px;">
                 <div>
                     <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
                 </div>
-                <h3 style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;">{{okr.phone}}</h3>
-                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{okr.created_at}}</a>
-                <p style="margin-left: 10px;">{{okr.times}}</p>
+                <h3 style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;">{{phone}}</h3>
+                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{created_at}}</a>
+                <p style="margin-left: 10px;">{{times}}</p>
             </div>
             <div style="height: 100;margin-left: 10px;margin-right: 10px;font-weight: bold;font-size:16px;">
-                {{okr.object}}
+                {{object}}
             </div>
             <div style="height: 20px;margin: 10px;">
                 <div style="width: 40px;height: 20px;color:#333333;font-weight: bold;font-size:14px;">点赞</div>
             </div>
-
-        </div>
+            {{/edit}}
+        </script>{% endraw %}
+        
 
         <div class="content"></div>
         <div class="secondPart">
@@ -410,9 +415,9 @@
                 <a class="showOro" style="width: 590px;height: 100%;padding: 10px;font-size:14px;font-weight: bold;color:#333333;display: none;">
                     先天下之忧而忧，后天下之乐而乐<p>
                         先天下之忧而忧，后天下之乐而乐
-                    </a>
-                <a style="text-decoration:none;margin:10px;margin-top:0px;float: right;font-size:14px;font-weight: bold;color:#333333;" class="clicks"
-                    onclick="showOrocode()" href="#">展开</a>
+                </a>
+                <a style="text-decoration:none;margin:10px;margin-top:0px;float: right;font-size:14px;font-weight: bold;color:#333333;"
+                    class="clicks" onclick="showOrocode()" href="#">展开</a>
             </div>
 
         </div>
@@ -425,7 +430,6 @@
                         <a class="showdiv" style="display: none">
                             1.时时跟进OKR： 在交谈需要确定如何去达<p>
                                 2.时时跟进OKR： 在交谈需要确定如何去达
-            
                         </a>
                 </div>
                 <a style="text-decoration:none;margin:10px;margin-top:0px;float: right;font-size:14px;font-weight: bold;color:#333333;"
@@ -529,13 +533,43 @@
             $(".showOro").toggle();
 
         }
-            // if ('.interface' !== 'username') {
-            //     $('.nide').css('display', 'block');
-            //     console.log(222)
-            // } else {
-            //     $('.nide').css('display', 'none');
-            //     console.log(3333)
-            // }
+        // if ('.interface' !== 'username') {
+        //     $('.nide').css('display', 'block');
+        //     console.log(222)
+        // } else {
+        //     $('.nide').css('display', 'none');
+        //     console.log(3333)
+        // }
+
+
+
+        function getQueryFromUrl(key, url) {
+            url = url.replace('?', '');
+            var arr = url.split('&');
+
+            var queryObj = {};
+
+            for (var i = 0; i < arr.length; i++) {
+                var el = arr[i];
+                var elArr = el.split('=');
+                queryObj[elArr[0]] = elArr[1];
+            }
+
+            return queryObj[key]
+        }
+
+        var id = getQueryFromUrl('id', window.location.search);
+        console.log('id: ', id)
+
+        var $t = $('#template');
+        var tContent = $t.text();
+
+        $.get('/api/details/' + id, function (res) {
+            var data = res.data;
+            console.log('data: ',data);
+            var html = Mustache.render(tContent, { edit: data });
+            $('#edit').append(html);
+        });
 
     </script>
     </div>

@@ -81,12 +81,13 @@
             float: left;
         }
 
-        .content {
+        .containe {
             width: 296px;
             height: 496px;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             float: right;
+            border:1px solie red;;
         }
 
         .detailed {
@@ -153,7 +154,7 @@
         .loging {
             width: 52px;
             height: 37px;
-            font-size: 26px;
+            font-size: 25px;
             font-family: PingFangSC-Regular;
             font-weight: 400;
             color: rgba(74, 144, 226, 1);
@@ -312,6 +313,7 @@
 </head>
 
 <body>
+    <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
     <div class="interface">{{phone}}</div>
@@ -332,7 +334,7 @@
         <div class="edit">
             <form action="/api/articles" method="POST">
                 <div class="title1">
-                   <h4>给自己定个小目标吧！</h4>
+                    <h4>给自己定个小目标吧！</h4>
                 </div>
                 <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
                 <div>
@@ -347,26 +349,9 @@
 
         </div>
 
-
-
-        <div class="content"></div>
-        {% for okr in okrs %}
-        <div class="detailed">
-            <div style="height: 60px;line-height: 60px;">
-                <div>
-                    <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
-                </div>
-                <h3><a href="/presonal/{{okr.user_id}}" style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;text-decoration: none;">{{okr.phone}}</a></h3>
-                <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{okr.created_at}}</a>
-            </div>
-            <div class="homecontent">
-                <a href="/details/{{okr.id}}" style="text-decoration:none;color:#333333;font-size:16px;font-weight: bold;">{{okr.object}}</a>
-                <!-- <div style="border:1px solid red;"></div> -->
-            </div>
-        </div>
-        {% endfor %}
-
+        <div class="containe"></div>
         <div class="container"></div>
+
 
         <form action="/api/login" method="POST">
             <div class="titme">
@@ -396,6 +381,27 @@
                 <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
             </div>
         </form>
+        <div id="actions"></div>
+            {% raw %}
+            <script type="template" id="template">
+            {{#actions}}
+            <div class="detailed">
+                    <div style="height: 60px;line-height: 60px;">
+                        <div>
+                            <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
+                        </div>
+                        <h3><a href="/presonal/{{okr.user_id}}" style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;text-decoration: none;">{{phone}}</a></h3>
+                        <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{created_at}}</a>
+                    </div>
+                    <div class="homecontent">
+                        <a href="/details?id={{id}}" style="text-decoration:none;color:#333333;font-size:16px;font-weight: bold;">{{object}}</a>
+                        <!-- <div style="border:1px solid red;"></div> -->
+                    </div>
+                </div>
+        {{/actions}}
+    </script> {% endraw %}
+        
+        
 
         <script>
             $('.main_nav').click(function () {
@@ -436,6 +442,17 @@
             //     console.log(3333)
             // }
 
+
+            var $t = $('#template');
+            var tContent = $t.text();
+
+            $.get('/api/homepage', function (res) {
+                
+                var data = res.data;
+                // console.log(data);
+                var html = Mustache.render(tContent, { actions: data });
+                $('#actions').append(html);
+            })
         </script>
     </div>
 
