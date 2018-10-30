@@ -31,36 +31,62 @@ app.get('/api/homepage', function (req, res) {
     from okr`, function (err, data) {
             var phone = req.cookies.username;
 
-            res.json({data});
+            res.json({ data });
             // console.log(data)
         })
 });
 
-app.get('/',function(req,res){
+app.get('/', function (req, res) {
     res.render('homePage.html')
 })
 
-app.get('/api/details/:id',function(req,res){
+app.get('/api/details/:id', function (req, res) {
     var id = req.params.id;
-  
+
     connection.query(`select *,
    (select phone from user where user.id = okr.user_id) as phone
    from okr where id=? limit 1`, [id], function (err, data) {
             res.cookie('okr_id', id);
             var phone = req.cookies.username;
-            res.json({data});
-
+            res.json({ data });
+            // console.log('data: ',data)
         })
 })
 
-app.get('/details',function(req,res){
-    
+// app.get('/api/comments/:okr_id', function (req, res) {
+//     var okr_id = req.query.okr_id;
+//     var page = req.query.page || 1;
+//     var size = 10;
+
+//     connection.query(`select *,
+// (select username from user where user.id=comment.user_id) as username,
+// (select avatar from user where user.id=comment.user_id) as avatar
+//                     from comment where okr_id=? limit ?, ?`, [okr_id, (page - 1) * size, size], function (err, data) {
+//             res.json(data);
+//             console.log('data: ', data)
+//         })
+// });
+
+app.get('/api/comments/:id', function (req, res) {
+    var okr_id = req.params.id;
+
+    connection.query(`select * ,
+                    (select username from user where user.id=comment.user_id) as username,
+                    (select avatar from user where user.id=comment.user_id) as avatar
+            from comment where okr_id=?`, [okr_id], function (err, data) {
+            res.json({ data, okr_id: okr_id });
+        })
+});
+
+
+app.get('/details', function (req, res) {
+
     res.render('details.html')
 })
 
 // app.get('/details/:id', function (req, res) {
 //     var id = req.params.id;
-  
+
 //     connection.query(`select *,
 //    (select phone from user where user.id = okr.user_id) as phone
 //    from okr where id=? limit 1`, [id], function (err, data) {
@@ -72,14 +98,15 @@ app.get('/details',function(req,res){
 
 
 // ????
-app.get('/presonal/:id', function (req, res) {
+app.get('/api/presonal/:id', function (req, res) {
     var user_id = req.params.id;
-    
+
     connection.query(`select *,
     (select phone from user where user.id = okr.user_id) as phone
-    from okr where user_id=?`,[user_id], function (err, data) {
+    from okr where user_id=?`, [user_id], function (err, data) {
             var phone = req.cookies.username;
-            res.render('personalCenter.html', {phone:phone,okrs:data});
+            res.json(data)
+            console.log(data)
         })
 });
 
@@ -95,12 +122,16 @@ app.get('/presonal/:id', function (req, res) {
 
 
 
-// app.get('/api/*', function (req, res){
-//     var url = req.originalUrl;
-//     request.get('localhost:3000' + url, function(err,resp){
-//         res.send(JSON.parse(resp.body))
-//     })
-// })
+app.get('/api/*', function (req, res){
+    var url = req.originalUrl;
+    request.get('localhost:3000' + url, function(err,resp){
+        res.send(JSON.parse(resp.body))
+    })
+})
+
+app.get('/center', function (req, res) {
+    res.render('PersonalCenter.html')
+});
 
 
 
@@ -125,7 +156,7 @@ app.post('/api/homePage', function (req, res) {
     var token = Math.random();
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    connection.query('insert into user values (null, ?, ?, ?, "", ?, ?)', [phone, password, username,token ,created_at], function (err, data) {
+    connection.query('insert into user values (null, ?, ?, ?, "", ?, ?)', [phone, password, username, token, created_at], function (err, data) {
         // console.log('data:', data);
         res.send("注册成功");
     });
@@ -174,9 +205,7 @@ app.post('/api/login', function (req, res) {
 //     res.render('details.html')
 // });
 
-app.get('/center', function (req, res) {
-    res.render('PersonalCenter.html')
-});
+
 
 
 

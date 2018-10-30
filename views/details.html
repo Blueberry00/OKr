@@ -111,7 +111,7 @@
 
         .detailed {
             width: 610px;
-            height: 100%px;
+            height: 100;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             margin-top: 10px;
@@ -181,8 +181,8 @@
             margin-left: 15px;
         }
 
-        .more {
-            border: 1px solid #D9D9D9;
+        #more {
+            
             margin: 0 auto;
             margin-bottom: 20px;
         }
@@ -344,14 +344,6 @@
             /* border: 1px solid red; */
         }
 
-        .contant {
-            border: 1px solid rgb(146, 145, 145);
-            height: 120px;
-            margin: 0 auto;
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-
         .secondPart {
             /* border:1px solid red; */
             float: left;
@@ -453,11 +445,22 @@
                 <button class="comment1">评论</button>
             </form>
 
-            <!-- {% for comment in commen %}
-            <div class="contant">{{comment.content}}</div>
-            {% endfor %} -->
-            <!-- <div class="more"></div> -->
-
+           <div id="more" style="height: 100%"></div>
+           {% raw %}
+           <script type="templatetit" id="templatetit">
+               {{#more}}
+               <div style="background-color:">
+                   <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
+                   <div style="margin-top:18px;border:1px solid #FFFFFF">
+                   <h3 style="color:#333333">{{username}}
+                        <a style="width: 10px;height: 20px;line-height:20px;margin-right:100px;color:#999999;font-size:14px;">{{created_at}}</a>
+                   </h3>
+                </div>
+               <a style="color:#333333;margin-left:10px;font-size:14px;">{{content}}</a>
+               <div class="line1"></div>
+               </div>
+           {{/more}}
+       </script>{% endraw %}
         </div>
 
     </div>
@@ -559,17 +562,27 @@
         }
 
         var id = getQueryFromUrl('id', window.location.search);
-        console.log('id: ', id)
+        // console.log('id: ', id)
 
         var $t = $('#template');
         var tContent = $t.text();
 
         $.get('/api/details/' + id, function (res) {
             var data = res.data;
-            console.log('data: ',data);
+            // console.log('data: ',data);
             var html = Mustache.render(tContent, { edit: data });
             $('#edit').append(html);
         });
+
+        var $V = $('#templatetit');
+        var VContent = $V.text();
+
+        $.get('/api/comments/' + id,function(res){
+            var data = res.data;
+            console.log('data: ',data);
+            var html = Mustache.render(VContent, { more: data });
+            $('#more').append(html);
+        })
 
     </script>
     </div>
