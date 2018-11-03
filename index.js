@@ -139,10 +139,10 @@ app.get('/center', function (req, res) {
 app.post('/api/comments', function (req, res) {
     var okr_id = req.cookies.okr_id;
     var uid = req.cookies.uid;
-    var writeIn = req.body.write;
+    var write = req.body.write;
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    connection.query('insert into comment values (null,? , ? , ? , ?)', [okr_id, uid, writeIn, created_at], function (err, data) {
+    connection.query('insert into comment values (null,? , ? , ? , ?)', [okr_id, uid, write, created_at], function (err, data) {
         // console.log('data:', data)
         res.send("评论成功");
     })
@@ -157,14 +157,14 @@ app.post('/api/homePage', function (req, res) {
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
 
     connection.query('select * from user where phone=? and password=? limit 1', [phone, password], function (err, data) {
-        console.log('data :',data)
+        // console.log('data :',data)
         if (data.length > 0) {
             res.send('用户名已存在');
         }else{
             connection.query('insert into user values (null, ?, ?, ?, "", ?, ?)', [phone, password, username, token, created_at], function (err, data) {
                 res.json({data});
             });
-        } 
+        }
     })
 });
 

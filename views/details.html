@@ -200,7 +200,7 @@
         }
 
         .loging {
-            width: 52px;
+            width: 62px;
             height: 37px;
             font-size: 26px;
             font-family: PingFangSC-Regular;
@@ -353,12 +353,94 @@
             margin-top: 10px;
             background-color: #FFFFFF;
         }
+
+        .inputlong {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .inputlong1 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .inputlong2{
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+        .registers{
+            width: 269px;
+            height: 50px;
+            background: rgba(74, 144, 226, 1);
+            border-radius: 4px;
+            margin: 0 auto;
+            margin-top: 20px;
+            text-align: center;
+            margin-left: 48px;
+            padding-top: 10px;
+            color: #FFFFFF;
+        }
+
+                .registers1 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .registers2 {
+            width: 300px;
+            height: 30px;
+            font-size: 14px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 20px;
+            margin: 0 auto;
+            margin-left: 33px;
+            margin-top: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
     </style>
 </head>
 
 <body>
-        <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
-        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
     <div class="interface">{{phone}}</div>
     <div class="title">
@@ -376,8 +458,8 @@
     </div>
     <div class="frame">
         <div id="edit"></div>
-            {% raw %}
-            <script type="template" id="template">
+        {% raw %}
+        <script type="template" id="template">
                 {{#edit}}
             <div style="height: 60px;line-height: 60px;">
                 <div>
@@ -395,7 +477,7 @@
             </div>
             {{/edit}}
         </script>{% endraw %}
-        
+
 
         <div class="content"></div>
         <div class="secondPart">
@@ -440,14 +522,13 @@
         <div class="detailed">
             <div class="comment">评论(...)</div>
             <div class="line1"></div>
-            <form action="/api/comments" method="POST">
-                <input class="input1" name="write" autocomplete="off" placeholder="请输入你的评论内容...">
-                <button class="comment1">评论</button>
-            </form>
 
-           <div id="more" style="height: 100%"></div>
-           {% raw %}
-           <script type="templatetit" id="templatetit">
+            <input class="input1" id="input1" name="write" autocomplete="off" placeholder="请输入你的评论内容...">
+            <button class="comment1">评论</button>
+
+            <div id="more" style="height: 100%"></div>
+            {% raw %}
+            <script type="templatetit" id="templatetit">
                {{#more}}
                <div style="background-color:">
                    <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
@@ -467,34 +548,30 @@
 
     <div class="container"></div>
 
-    <form action="/api/login" method="POST">
-        <div class="titme">
-            <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
-                    style="width: 20px;height: 20px;"></div>
-            <div class="loging">登陆</div>
-            <input class="inputlong" name="phone" autocomplete="off" placeholder="手机或邮箱">
-            <input class="inputlong1" name="password" autocomplete="off" placeholder="密码">
-            <div class="word">忘记密码？</div>
-            <button class="land">登陆</button>
-            <div class="landing">没有账号? <a class="register" style="color: #4A90E2">注册</a></div>
-        </div>
-    </form>
+    <div class="titme">
+        <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                style="width: 20px;height: 20px;"></div>
+        <div class="loging">登陆</div>
+        <input class="inputlong" id=inputlong name="phone" autocomplete="off" placeholder="手机或邮箱">
+        <input class="inputlong2" id=inputlong2 name="password" autocomplete="off" placeholder="密码">
+        <div class="word">忘记密码？</div>
+        <button class="land">登陆</button>
+        <div class="landing">没有账号? <a class="register" style="color: #4A90E2">注册</a></div>
+    </div>
 
-    <form action="/api/homePage" method="POST">
-        <div class="singup">
-            <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
-                    style="width: 20px;height: 20px;"></div>
-            <div class="loging">注册</div>
-            <input class="inputlong" name="phone" autocomplete="off" placeholder="手机号或邮箱">
-            <input class="inputlong1" name="password" autocomplete="off" placeholder="请输入你的密码">
-            <button class="butt">
-                <a class="pushtock">获取验证码</a>
-            </button>
-            <input class="inputlong1" autocomplete="off" name="pushtock" placeholder="请输入6位的验证码">
-            <button class="land">注册</button>
-            <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
-        </div>
-    </form>
+    <div class="singup">
+        <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
+                style="width: 20px;height: 20px;"></div>
+        <div class="loging">注册</div>
+        <input class="registers1" id="registers1" autocomplete="off" placeholder="手机号或邮箱">
+        <input class="registers2" id="registers2" autocomplete="off" placeholder="请输入你的密码">
+        <button class="butt">
+            <a class="pushtock">获取验证码</a>
+        </button>
+        <input class="inputlong1" autocomplete="off" placeholder="请输入6位的验证码">
+        <button class="registers">注册</button>
+        <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
+    </div>
 
     <script>
         $('.main_nav').click(function () {
@@ -577,12 +654,77 @@
         var $V = $('#templatetit');
         var VContent = $V.text();
 
-        $.get('/api/comments/' + id,function(res){
+        $.get('/api/comments/' + id, function (res) {
             var data = res.data;
-            console.log('data: ',data);
+            console.log('data: ', data);
             var html = Mustache.render(VContent, { more: data });
             $('#more').append(html);
         })
+
+        $('.comment1').click(function () {
+
+            var name = $('#input1').val();
+            console.log(name);
+
+            $.ajax({
+                type: "POST",
+                dataType: "TEXT",
+                url: "/api/comments",
+                cache: false,
+                data: { write: name },
+                success: function (data) {
+                    alert("评论成功!");
+                    window.location.reload();
+                }
+            });
+        });
+
+        $('.registers').click(function () {
+
+            var name = $('#registers1').val();
+            var pwd = $('#registers2').val();
+            console.log(name, pwd);
+
+            $.ajax({
+                type: "POST",
+                dataType: "TEXT",
+                url: "/api/homePage",
+                cache: false,
+                data: { phone: name, password: pwd },
+                success: function (data) {
+                    if (data == '用户名已存在') {
+                        alert("对不起用户名已存在!");
+                        window.location.reload();
+                    } else {
+                        alert("注册成功!");
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+
+        $('.land').click(function () {
+
+            var name = $('#inputlong').val();
+            var pwd = $('#inputlong2').val();
+
+            $.ajax({
+                type: "POST",
+                dataType: "TEXT",
+                url: "/api/login",
+                cache: false,
+                data: { phone: name, password: pwd },
+                success: function (data) {
+                    if (data != '对不起') {
+                        alert("登陆成功!");
+                        window.location.reload();
+                    } else {
+                        alert("对不起用户名或密码不正确!");
+                        window.location.reload();
+                    }
+                }
+            });
+        });
 
     </script>
     </div>
