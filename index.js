@@ -30,8 +30,8 @@ app.get('/api/homepage', function (req, res) {
     (select phone from user where user.id = okr.user_id) as phone
     from okr`, function (err, data) {
             var phone = req.cookies.username;
-
-            res.json({ data });
+            //   console.log('phone: ',phone)
+            res.json({ data , phone:phone});
             // console.log(data)
         })
 });
@@ -156,10 +156,16 @@ app.post('/api/homePage', function (req, res) {
     var token = Math.random();
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    connection.query('insert into user values (null, ?, ?, ?, "", ?, ?)', [phone, password, username, token, created_at], function (err, data) {
-        // console.log('data:', data);
-        res.render("homePage.html");
-    });
+    connection.query('select * from user where phone=? and password=? limit 1', [phone, password], function (err, data) {
+        console.log('data :',data)
+        if (data.length > 0) {
+            res.send('用户名已存在');
+        }else{
+            connection.query('insert into user values (null, ?, ?, ?, "", ?, ?)', [phone, password, username, token, created_at], function (err, data) {
+                res.json({data});
+            });
+        } 
+    })
 });
 
 
@@ -182,6 +188,7 @@ app.post('/api/login', function (req, res) {
     var phone = req.body.phone;
     var password = req.body.password;
     connection.query('select * from user where phone=? and password=? limit 1', [phone, password], function (err, data) {
+        console.log('data:',data)
         if (data.length > 0) {
             res.cookie('uid', data[0].id);
             res.cookie('user_name', data[0].username);
@@ -191,12 +198,11 @@ app.post('/api/login', function (req, res) {
             var token = phone + password + new Date().getTime() + Math.random();
             connection.query('update user as t set t.token = ? where  phone=? ', [token, phone], function (err, data) {
                 res.cookie('token', token)
-
-                res.send('登陆成功');
+                res.json({data});
             });
-        } else {
-            res.send('对不起，用户名或密码错误')
-        }
+        }else{
+            res.send('对不起');
+        } 
     })
 })
 
