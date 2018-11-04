@@ -9,18 +9,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>首页</title>
     <style>
-        html {
+        html, 
+        body {
             width: 100%;
             height: 100%;
             /* border:1px solid black; */
             background: rgb(211, 210, 210);
             /* background: rgba(242, 242, 242, 1); */
-        }
-
-        body {
             margin: 0;
         }
-
 
         .title {
             width: 100%;
@@ -62,11 +59,9 @@
         }
 
         .frame {
-
             /* border:1px solid red; */
             width: 920px;
-            height: 207px;
-            /* background: rgba(255, 255, 255, 1); */
+            height: 100;
             border-radius: 4px;
             margin: 0 auto;
             margin-top: 20px;
@@ -75,7 +70,6 @@
         .edit {
             /* border:1px solid red; */
             width: 610px;
-            background: rgba(255, 255, 255, 1);
             border-radius: 4px;
             margin: 0 auto;
             float: left;
@@ -95,8 +89,6 @@
             height: 100;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
-            margin-top: 10px;
-            float: left;
             /* padding: 10px; */
         }
 
@@ -108,7 +100,7 @@
             line-height: 22px;
             /* border:1px solid red; */
             margin-left: 14px;
-            margin-top: 16px;
+            
         }
 
         .main_nav>a {
@@ -353,7 +345,7 @@
             margin: 20px;
         }
 
-        .interface {
+        #interface {
             float: right;
             width: 40px;
             height: 40px;
@@ -364,6 +356,15 @@
             margin: 0 auto;
             padding: 10px;
         }
+
+        .button1{
+            margin-top: 10px;
+            width: 610px;
+            height: 40px;
+            border:0px;
+            background-color:rgb(197, 195, 195);
+        }
+        
     </style>
 </head>
 
@@ -371,7 +372,16 @@
     <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
-    <div class="interface">{{phone}}</div>
+    <!-- ？？？？？？ -->
+    <div id="interface"></div>
+    {% raw %}
+    <script type="newInterface" id="newInterface">
+      {{#interface}}
+      
+      <div style="border:1px solid red;height:20px"><a>{{phone}}</a></div>
+      {{/interface}}
+    </script>{% endraw %}
+
     <div class="title">
         <div style="width:920px;margin:0 auto">
             <div class="orokr"><a style="text-decoration:none;color: #FFFFFF" href="/">okr</a></div>
@@ -385,27 +395,61 @@
 
         </div>
     </div>
+
     <div class="frame">
         <div class="edit">
-            <form action="/api/articles" method="POST">
-                <div class="title1">
-                    <h4>给自己定个小目标吧！</h4>
+            <!-- ！！！！注意 -->
+            <div style="background: rgba(255, 255, 255, 1);height: 420px;border-radius:4px;">
+                <!--！！！！注意-->
+
+                <form action="/api/articles" method="POST">
+                    <div class="title1">
+                        <h4 style="margin-top:0px;">给自己定个小目标吧！</h4>
+                    </div>
+                    <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
+                    <div>
+                        <input class="input1" name="key_results" autocomplete="off" placeholder="K请输入你的内容...">
+                    </div>
+                    <div>
+                        <input class="input1" name="action" autocomplete="off" placeholder="R请输入你的内容...">
+                    </div>
+                    <button class="push"><a style="text-align: center;">发布</a>
+                    </button>
+                </form>
+            </div>
+            <div style="margin-top:16px;position: relative;">
+
+                <div id="actions">
+                    {% raw %}
+                    <script type="template" id="template">
+                            {{#actions}}
+                            <div class="detailed">
+                                    <div style="height: 60px;line-height: 60px;">
+                                        <div>
+                                            <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
+                                        </div>
+                                        <h3><a href="/center?id={{user_id}}" style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;text-decoration: none;">{{phone}}</a></h3>
+                                        <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{created_at}}</a>
+                                    </div>
+                                    <div class="homecontent">
+                
+                                        <a href="/details?id={{id}}" style="text-decoration:none;color:#333333;font-size:16px;font-weight: bold;">{{object}}</a>
+                                    </div>
+                                </div>
+                        {{/actions}}
+                        
+                    </script> {% endraw %}
                 </div>
-                <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
-                <div>
-                    <input class="input1" name="key_results" autocomplete="off" placeholder="K请输入你的内容...">
+                <div class="nextPage">
+                    <button class="button1"><a style="font-size:16px;font-weight: bold;">查看更多</a>
                 </div>
-                <div>
-                    <input class="input1" name="action" autocomplete="off" placeholder="R请输入你的内容...">
-                </div>
-                <button class="push"><a style="text-align: center;">发布</a>
-                </button>
-            </form>
+            </div>
+
 
         </div>
-
         <div class="containe"></div>
         <div class="container"></div>
+
 
         <div class="titme">
             <div class="closes"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2979373193,3327584681&fm=58&bpow=675&bpoh=616"
@@ -431,128 +475,152 @@
             <button class="registers">注册</button>
             <div class="landing1">已有账号? <span class="loning" style="color: #4A90E2">登陆</span></div>
         </div>
+    </div>
+    </div>
+    <script>
+        $('.main_nav').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'block');
+            $('.singup').css('display', 'none');
+        })
 
-        <div id="actions"></div>
-        {% raw %}
-        <script type="template" id="template">
-            {{#actions}}
-            <div class="detailed">
-                    <div style="height: 60px;line-height: 60px;">
-                        <div>
-                            <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
-                        </div>
-                        <h3><a href="/presonal/{{okr.user_id}}" style="float: left;margin:0;margin-left: 10px;color:#999999;font-size:14px;text-decoration: none;">{{phone}}</a></h3>
-                        <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{created_at}}</a>
-                    </div>
-                    <div class="homecontent">
-                        <a href="/details?id={{id}}" style="text-decoration:none;color:#333333;font-size:16px;font-weight: bold;">{{object}}</a>
-                        <!-- <div style="border:1px solid red;"></div> -->
-                    </div>
-                </div>
-        {{/actions}}
-    </script> {% endraw %}
+        $('.loning').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'block');
+            $('.singup').css('display', 'none');
+        })
 
+        $('.register').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'none');
+            $('.singup').css('display', 'block');
+        })
 
+        $('.main_tow').click(function () {
+            $('.container').css('display', 'block');
+            $('.titme').css('display', 'none');
+            $('.singup').css('display', 'block');
+        })
 
-        <script>
-            $('.main_nav').click(function () {
-                $('.container').css('display', 'block');
-                $('.titme').css('display', 'block');
-                $('.singup').css('display', 'none');
-            })
+        $('.closes').click(function () {
+            $('.container').css('display', 'none');
+            $('.titme').css('display', 'none');
+            $('.singup').css('display', 'none');
+        });
 
-            $('.loning').click(function () {
-                $('.container').css('display', 'block');
-                $('.titme').css('display', 'block');
-                $('.singup').css('display', 'none');
-            })
-
-            $('.register').click(function () {
-                $('.container').css('display', 'block');
-                $('.titme').css('display', 'none');
-                $('.singup').css('display', 'block');
-            })
-
-            $('.main_tow').click(function () {
-                $('.container').css('display', 'block');
-                $('.titme').css('display', 'none');
-                $('.singup').css('display', 'block');
-            })
-
-            $('.closes').click(function () {
-                $('.container').css('display', 'none');
-                $('.titme').css('display', 'none');
-                $('.singup').css('display', 'none');
-            });
-
-            // if ('.interface' !== 'username') {
-            //     $('.nide').css('display', 'block');
-            //     console.log(222)
-            // } else {
-            //     $('.nide').css('display', 'none');
-            //     console.log(3333)
-            // }
+        // if ('.interface' !== 'username') {
+        //     $('.nide').css('display', 'block');
+        //     console.log(222)
+        // } else {
+        //     $('.nide').css('display', 'none');
+        //     console.log(3333)
+        // }
 
 
+
+        var $n = $('#newInterface');
+        var nContent = $n.text();
+
+        function getData(offset, size) {
             var $t = $('#template');
             var tContent = $t.text();
 
             $.get('/api/homepage', function (res) {
-
                 var data = res.data;
-                // console.log(data);
-                var html = Mustache.render(tContent, { actions: data });
+                var sum = data.length;
+
+                var newData = [];
+                for (var i = 0; i < sum; i++) {
+                    var k = 4;
+                    if (i < k) {
+                        newData.push(data[i])
+                    } else {
+                        k + 4
+                    }
+                    // console.log('newData: ', newData);
+                    var html = Mustache.render(tContent, { actions: newData });
+                }
                 $('#actions').append(html);
             })
+        };
 
-            $('.registers').click(function () {
+        $(function () {
+            var counter = 0;
+            var pageStart = 0;
+            var pageSize = 4;
 
-                var name = $('#registers1').val();
-                var pwd = $('#registers2').val();
-                console.log(name, pwd);
+            //第一次加载
+            getData(pageStart, pageSize);
 
-                $.ajax({
-                    type: "POST",
-                    dataType: "TEXT",
-                    url: "/api/homePage",
-                    cache: false,
-                    data: { phone: name, password: pwd },
-                    success: function (data) {
-                        if (data == '用户名已存在') {
-                            alert("对不起用户名已存在!");
-                            window.location.reload();
-                        } else {
-                            alert("注册成功!");
-                            window.location.reload();
-                        }
-                    }
-                });
+            //加载更多
+            $('.button1').click(function () {
+                counter+=4;
+                pageStart = counter * pageSize;
+
+                getData(pageStart, pageSize);
             });
+        });
 
-            $('.land').click(function () {
 
-                var name = $('#inputlong').val();
-                var pwd = $('#inputlong2').val();
+        $.get('/api/phones', function (res) {
 
-                $.ajax({
-                    type: "POST",
-                    dataType: "TEXT",
-                    url: "/api/login",
-                    cache: false,
-                    data: { phone: name, password: pwd },
-                    success: function (data) {
-                        if (data != '对不起') {
-                            alert("登陆成功!");
-                            window.location.reload();
-                        } else {
-                            alert("对不起用户名或密码不正确!");
-                            window.location.reload();
-                        }
+            var phone = res.phone;
+
+            var html = Mustache.render(nContent, { interface: phone });
+            $('#interface').append(html);
+        })
+
+
+        $('.registers').click(function () {
+
+            var name = $('#registers1').val();
+            var pwd = $('#registers2').val();
+            // console.log(name, pwd);
+
+            $.ajax({
+                type: "POST",
+                dataType: "TEXT",
+                url: "/api/homePage",
+                cache: false,
+                data: { phone: name, password: pwd },
+                success: function (data) {
+                    if (data == '用户名已存在') {
+                        alert("对不起用户名已存在!");
+                        window.location.reload();
+                    } else {
+                        alert("注册成功!");
+                        window.location.reload();
                     }
-                });
+                }
             });
+        });
 
-        </script>
+        $('.land').click(function () {
+
+            var name = $('#inputlong').val();
+            var pwd = $('#inputlong2').val();
+
+            $.ajax({
+                type: "POST",
+                dataType: "TEXT",
+                url: "/api/login",
+                cache: false,
+                data: { phone: name, password: pwd },
+                success: function (data) {
+                    if (data != '对不起') {
+                        alert("登陆成功!");
+                        window.location.reload();
+                    } else {
+                        alert("对不起用户名或密码不正确!");
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+
+
+    </script>
     </div>
+</body>
 
 </html>
