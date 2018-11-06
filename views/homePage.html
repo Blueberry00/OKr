@@ -414,7 +414,7 @@
                 </div>
                 <button class="push"><a style="text-align: center;">发布</a>
                 </button>
-            
+
             </div>
             <div style="margin-top:16px;position: relative;">
 
@@ -507,60 +507,64 @@
             $('.singup').css('display', 'none');
         });
 
-        // if ('.interface' !== 'username') {
-        //     $('.nide').css('display', 'block');
-        //     console.log(222)
-        // } else {
-        //     $('.nide').css('display', 'none');
-        //     console.log(3333)
-        // }
-
-
-
-        var $n = $('#newInterface');
-        var nContent = $n.text();
-
+        //获取主页数据
         function getData(offset, size) {
             var $t = $('#template');
             var tContent = $t.text();
 
-            $.get('/api/homepage', function (res) {
-                var data = res.data;
-                var sum = data.length;
+            $.ajax({
+                type: 'GET',
+                url: '/api/homepage',
+                dataType: 'json',
+                data: { tContent: tContent },
 
-                var newData = [];
-                for (var i = 0; i < sum; i++) {
-                    var k = 4;
-                    if (i < k) {
-                        newData.push(data[i])
-                    } else {
-                        k + 4
+                success: function (data) {
+                    var datas = data.data;
+                    // console.log('data: ',data)
+                    var sums = datas.length;
+                    var newData = [];
+                    var k = size;
+                    console.log('sums: ',sums)
+
+                    for (var i = offset; i < sums; i++) {
+                        if (i < k) {
+                            newData.push(datas[i])
+                        }
+                        console.log('newData: ',newData)
+                        var html = Mustache.render(tContent, { actions: newData });
                     }
-                    // console.log('newData: ', newData);
-                    var html = Mustache.render(tContent, { actions: newData });
+                    $('#actions').append(html);
                 }
-                $('#actions').append(html);
-            })
+            });
         };
 
+        //显示加载更多
         $(function () {
             var counter = 0;
-            var pageStart = 0;
-            var pageSize = 4;
+            var offset = 0; //offset
+            var size = 4; //size
 
             //第一次加载
-            getData(pageStart, pageSize);
+            getData(offset, size);
 
             //加载更多
             $('.button1').click(function () {
-                counter += 4;
-                pageStart = counter * pageSize;
+                var counter = 0;
+                var offset = 0;
+                var i = 4; //offset
 
-                getData(pageStart, pageSize);
+
+                counter++;
+                offset = counter * size;
+                size = size + i;
+                getData(offset, size);
             });
         });
 
+        var $n = $('#newInterface');
+        var nContent = $n.text();
 
+        //获取用户头像
         $.get('/api/phones', function (res) {
             var phone = res.phone;
 
@@ -568,7 +572,7 @@
             $('#interface').append(html);
         })
 
-
+        //注册
         $('.registers').click(function () {
 
             var name = $('#registers1').val();
@@ -593,6 +597,7 @@
             });
         });
 
+        //登陆
         $('.land').click(function () {
 
             var name = $('#inputlong').val();
@@ -616,6 +621,7 @@
             });
         });
 
+        //发布
         $('.push').click(function () {
 
             var o = $('#push1').val();
@@ -627,7 +633,7 @@
                 dataType: "TEXT",
                 url: "/api/articles",
                 cache: false,
-                data: { title: o, key_results: k ,action : r},
+                data: { title: o, key_results: k, action: r },
                 success: function (data) {
                     if (data != '对不起，请先登陆！') {
                         alert("发布成功!");
@@ -639,8 +645,6 @@
                 }
             });
         });
-
-
 
     </script>
     </div>

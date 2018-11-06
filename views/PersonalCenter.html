@@ -209,36 +209,85 @@
                 {{/titleOkr}}
         </script> {% endraw %}
         </div>
-        <script>
+        <div class="nextPage" style="margin-top: 12px;background-color:rgb(211, 210, 210);">
+            <button class="button1" style="height: 40px;width: 552px"><a style="font-size:16px;font-weight: bold;">查看更多</a>
+        </div>
+    </div>
+    <script>
+        //获取ID
+        function getQueryFromUrl(key, url) {
+            url = url.replace('?', '');
+            var arr = url.split('&');
 
-            function getQueryFromUrl(key, url) {
-                url = url.replace('?', '');
-                var arr = url.split('&');
+            var queryObj = {};
 
-                var queryObj = {};
-
-                for (var i = 0; i < arr.length; i++) {
-                    var el = arr[i];
-                    var elArr = el.split('=');
-                    queryObj[elArr[0]] = elArr[1];
-                }
-
-                return queryObj[key]
+            for (var i = 0; i < arr.length; i++) {
+                var el = arr[i];
+                var elArr = el.split('=');
+                queryObj[elArr[0]] = elArr[1];
             }
 
-            var id = getQueryFromUrl('id', window.location.search);
-            console.log('id: ', id)
+            return queryObj[key]
+        }
 
+        var id = getQueryFromUrl('id', window.location.search);
+        console.log('id: ', id)
+
+        //拉去个人首页okr数据
+        function getData(offset, size) {
             var $t = $('#template');
             var tContent = $t.text();
 
-            $.get('/api/userOkr/' + id, function (res) {
-                var data = res.data;
-                console.log(data);
-                var html = Mustache.render(tContent, { titleOkr: data });
-                $('#titleOkr').append(html);
-            })
-        </script>
+            $.ajax({
+                type: 'GET',
+                url: '/api/userOkr/' + id,
+                dataType: 'json',
+                data: { tContent: tContent },
+
+                success: function (data) {
+                    var datas = data.data;
+                    console.log('data: ',data)
+                    var sums = datas.length;
+                    var newData = [];
+                    var k = size;
+                    console.log('sums: ', sums)
+
+                    for (var i = offset; i < sums; i++) {
+                        if (i < k) {
+                            newData.push(datas[i])
+                        }
+                        console.log('newData: ', newData)
+                        var html = Mustache.render(tContent, { titleOkr: newData });
+                    }
+                    $('#titleOkr').append(html);
+                }
+            });
+        };
+
+        //显示加载更多
+        $(function () {
+            var counter = 0;
+            var offset = 0; //offset
+            var size = 2; //size
+
+            //第一次加载
+            getData(offset, size);
+
+            //加载更多
+            $('.button1').click(function () {
+                var counter = 0;
+                var offset = 0;
+                var i = 2; //offset
+
+
+                counter++;
+                offset = counter * size;
+                size = size + i;
+                getData(offset, size);
+            });
+        });
+
+    </script>
     </div>
 </body>
 

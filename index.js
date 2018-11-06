@@ -31,8 +31,9 @@ app.get('/api/homepage', function (req, res) {
     (select phone from user where user.id = okr.user_id) as phone
     from okr`, function (err, data) {
             var phone = req.cookies.username;
-            res.json({data});
-            // console.log('data: ',data)
+            var sum = data.length;
+            res.json({data,sum:sum});
+        //    console.log('sum: ' ,sum)
         })
 });
 
@@ -149,7 +150,7 @@ app.post('/api/articles', function (req, res) {
     var action = req.body.action;
     var user_name = req.cookies.uid;
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
-    console.log('user_name： ',user_name);
+    // console.log('user_name： ',user_name);
 
     if(user_name == undefined){
         res.send('对不起，请先登陆！')
