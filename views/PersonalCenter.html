@@ -1,4 +1,3 @@
-
 <!-- 个人中心 -->
 
 <!DOCTYPE html>
@@ -164,6 +163,9 @@
 </head>
 
 <body>
+    <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
     <div class="title">
         <div style="width:920px;margin:0 auto">
             <div class="orokr"><a style="text-decoration:none;color: #FFFFFF" href="/">okr</a></div>
@@ -176,27 +178,74 @@
 
     <div class="firstRegion">
         <div class="headPortrait"><img class="portrait" src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4"></div>
-        
+
     </div>
 
     <div class="secondArea">
-        <div class="user">{{phone}}</div>
+        <div class="user">s{{user_id}}</div>
         <div class="data"><a href="" style="text-decoration: none;color:#4A90E2;">编辑个人资料</a></div>
     </div>
     <div class="outerFrame">
         <div class="thirdParts">
             <div class="or2okr">OKr</div>
             <div style="border:1.5px solid #4A90E2;width: 40px;margin-left: 15px;"></div>
-            {% for okr in okrs %}
             <p style="border:1px solid #F3F3F3;margin: 18px;"></p>
-            <div class="okrOne">
-                <div style="color: #999999;font-size:14px;float: left;">发布了okr</div>
-                <div style="color: #999999;font-size:14px;margin-left: 400px">发布于</div>
-                <div style="color: #333333;font-size:14px;margin-top: 10px;">{{okr.object}}</div>
-            </div>
-            {% endfor %}
+            <div id="titleOkr"></div>
+            {% raw %}
+            <script type="template" id="template">
+                {{#titleOkr}}
+                <div style="height: 60px;line-height: 60px;">
+                        <div>
+                            <img src="https://avatars2.githubusercontent.com/u/44021823?s=460&v=4" style="width:40px;height: 40px;border-radius: 50px;float: left;padding:10px;">
+                        </div>
+                        
+                        <a style="width: 10px;height: 20px;line-height:20px;margin-left: 140px;color:#999999;font-size:14px;">{{created_at}}</a>
+                    </div>
+                    <div class="homecontent" style="margin:16px">
+                        <a href="/details?id={{id}}" style="text-decoration:none;color:#333333;font-size:16px;font-weight: bold;">{{object}}</a>
+                        <!-- <div style="border:1px solid red;"></div> -->
+                    </div>
+                </div>
+                {{/titleOkr}}
+        </script> {% endraw %}
         </div>
+        <script>
+
+            function getQueryFromUrl(key, url) {
+                url = url.replace('?', '');
+                var arr = url.split('&');
+
+                var queryObj = {};
+
+                for (var i = 0; i < arr.length; i++) {
+                    var el = arr[i];
+                    var elArr = el.split('=');
+                    queryObj[elArr[0]] = elArr[1];
+                }
+
+                return queryObj[key]
+            }
+
+            var id = getQueryFromUrl('id', window.location.search);
+            console.log('id: ', id)
+
+            var $t = $('#template');
+            var tContent = $t.text();
+
+            $.get('/api/userOkr/' + id, function (res) {
+                var data = res.data;
+                console.log(data);
+                var html = Mustache.render(tContent, { titleOkr: data });
+                $('#titleOkr').append(html);
+            })
+        </script>
     </div>
 </body>
 
 </html>
+
+<!-- <div class="okrOne">
+    <div style="color: #999999;font-size:14px;float: left;">发布了okr</div>
+    <div style="color: #999999;font-size:14px;margin-left: 400px">发布于</div>
+    <div style="color: #333333;font-size:14px;margin-top: 10px;">{{okr.object}}</div>
+</div> -->

@@ -402,20 +402,19 @@
             <div style="background: rgba(255, 255, 255, 1);height: 420px;border-radius:4px;">
                 <!--！！！！注意-->
 
-                <form action="/api/articles" method="POST">
-                    <div class="title1">
-                        <h4 style="margin-top:0px;">给自己定个小目标吧！</h4>
-                    </div>
-                    <input class="input1" name="object" autocomplete="off" placeholder="请输入你的内容...">
-                    <div>
-                        <input class="input1" name="key_results" autocomplete="off" placeholder="K请输入你的内容...">
-                    </div>
-                    <div>
-                        <input class="input1" name="action" autocomplete="off" placeholder="R请输入你的内容...">
-                    </div>
-                    <button class="push"><a style="text-align: center;">发布</a>
-                    </button>
-                </form>
+                <div class="title1">
+                    <h4 style="margin-top:0px;">给自己定个小目标吧！</h4>
+                </div>
+                <input class="input1" id="push1" autocomplete="off" placeholder="请输入你的内容...">
+                <div>
+                    <input class="input1" id="push2" autocomplete="off" placeholder="K请输入你的内容...">
+                </div>
+                <div>
+                    <input class="input1" id="push3" autocomplete="off" placeholder="R请输入你的内容...">
+                </div>
+                <button class="push"><a style="text-align: center;">发布</a>
+                </button>
+            
             </div>
             <div style="margin-top:16px;position: relative;">
 
@@ -554,7 +553,7 @@
 
             //加载更多
             $('.button1').click(function () {
-                counter+=4;
+                counter += 4;
                 pageStart = counter * pageSize;
 
                 getData(pageStart, pageSize);
@@ -563,7 +562,6 @@
 
 
         $.get('/api/phones', function (res) {
-
             var phone = res.phone;
 
             var html = Mustache.render(nContent, { interface: phone });
@@ -617,6 +615,31 @@
                 }
             });
         });
+
+        $('.push').click(function () {
+
+            var o = $('#push1').val();
+            var k = $('#push2').val();
+            var r = $('#push3').val();
+
+            $.ajax({
+                type: "POST",
+                dataType: "TEXT",
+                url: "/api/articles",
+                cache: false,
+                data: { title: o, key_results: k ,action : r},
+                success: function (data) {
+                    if (data != '对不起，请先登陆！') {
+                        alert("发布成功!");
+                        window.location.reload();
+                    } else {
+                        alert("发布失败，请先登陆!");
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+
 
 
     </script>

@@ -91,7 +91,6 @@ app.get('/api/*', function (req, res) {
 
 //详情页面
 app.get('/details', function (req, res) {
-
     res.render('details.html')
 })
 
@@ -145,15 +144,20 @@ app.post('/api/homePage', function (req, res) {
 
 //发布
 app.post('/api/articles', function (req, res) {
-    var title = req.body.object;
+    var title = req.body.title;
     var key_results = req.body.key_results;
     var action = req.body.action;
     var user_name = req.cookies.uid;
     var created_at = moment().format('YYYY-MM-DD HH:mm:ss');
+    console.log('user_name： ',user_name);
 
-    connection.query('insert into okr values (null,?, ? ,? , ? ,?)', [title, key_results, action, user_name, created_at], function (err, data) {
-        res.send("发布成功");
-    });
+    if(user_name == undefined){
+        res.send('对不起，请先登陆！')
+    }else{
+        connection.query('insert into okr values (null,?, ? ,? , ? ,?)', [title, key_results, action, user_name, created_at], function (err, data) {
+            res.json({data});
+        });
+    }
 });
 
 // 登陆
